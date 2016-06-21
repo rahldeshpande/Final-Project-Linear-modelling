@@ -1,0 +1,69 @@
+setwd("C:\\PERSONAL DATA\\SELF TRAINING\\Business Analytics\\Academics\\Sessions\\Project Final\\Project 1")
+getwd()
+read.csv("Sales_dataset.csv",header = T)
+SalesData<-read.csv("Sales_dataset.csv",header = T)
+SalesData
+head(SalesData)
+str(SalesData)
+str(SalesData);
+summary.matrix(SalesData)
+boxplot(SalesData$plays)
+boxplot(SalesData)
+which(SalesData$plays==0)
+attach(SalesData)
+View(SalesData)
+setwd("C:\\PERSONAL DATA\\SELF TRAINING\\Business Analytics\\Academics\\Sessions\\Project Final\\Project 1");
+getwd();
+SalesData<-read.csv("Sales_dataset.csv",header = T);
+SalesData;
+attach(SalesData);
+View(SalesData)
+head(SalesData);
+str(SalesData);
+#findings-
+/*There are total 200 observations and 4 variables. We can check summary under global environment as well.*/
+#advertise is a continuous numeric variable, while sales, plays and attractiveness are discrete integers.
+#attractiveness seems like a factor as it has repeative digits.
+summary.matrix(SalesData)
+#Attractiveness is clearly a factor with 10 values.
+#there was no play for 1 advertise on Radio, ,median value for plays is less  greater than mean, that means
+which(SalesData$plays==0)
+hist(summary(SalesData$plays))
+hist(summary(SalesData$attractiveness))
+hist(summary(SalesData$advertise))
+barplot(summary(SalesData$plays))
+??barplot
+summary.matrix(SalesData)
+SalesData$attractiveness<-as.factor(SalesData$attractiveness)
+summary.matrix(SalesData)
+SalesData<-read.csv("Sales_dataset.csv",header = T);
+(SalesData)
+summary.matrix(SalesData)
+SalesData =which(SalesData$plays==0)
+SalesData<-read.csv("Sales_dataset.csv",header = T);
+attach(SalesData);
+detach(SalesData)
+attach(SalesData);
+setwd("C:\\PERSONAL DATA\\SELF TRAINING\\Business Analytics\\Academics\\Sessions\\Project Final\\Project 1");
+getwd();
+SalesData<-read.csv("Sales_dataset.csv",header = T);
+SalesData;
+attach(SalesData);
+search()
+SalesData
+summary(SalesData)
+summary(SalesData)
+plot(SalesData)
+SalesData(which(SalesData$plays==0))
+data(which(SalesData$plays==0))
+cor(SalesData)
+fit_lm<-lm(sales~advertise+plays+attractiveness)
+summary(fit_lm)
+forecast(fit_lm)
+forcast(fit_lm)
+forecast::forecast.lm(fit_lm)
+forecast.lm(fit_lm)
+plot(fit_lm)
+fit_lm<-lm(sales~advertise+plays+attractiveness, SalesData)
+summary(fit_lm)
+anova(fit_lm)
