@@ -16,11 +16,30 @@ plot(density(SalesData$attractiveness))
 plot(density(SalesData$plays))
 
 boxplot(SalesData)
-which(SalesData$plays==0)
 
 # exclude the attractiveness for further analysis
 SalesData[,-4]
 cor((SalesData[,-4]))
+
+fit_sa<-lm(sales~advertise, data=SalesData)
+summary(fit_sa)
+
+fit_sa<-step(lm(sales~advertise, data=SalesData), methode='forward')
+
+plot(sales,advertise)
+abline(fit_sa)
+
+
+fit_sp<-lm(sales~plays, data=SalesData)
+summary(fit_sp)
+
+plot(sales,plays)
+abline(fit_sp)
+
+plot(sales,attractiveness)
+plot(sales,as.factor(attractiveness))
+fit_sat<-lm(sales~factor(attractiveness), data=SalesData)
+summary(fit_sat)
 
 flm<-lm(sales~advertise+plays+attractiveness)
 flm
@@ -30,43 +49,34 @@ plot(flm)
 flm<-lm(sales~advertise+plays+factor(attractiveness) , data=SalesData)
 flm
 summary(flm)
-# now we have 10 variables created for attractiveness factor. Lets create dummy variables for attractiveness factor.
+# now we have 19 variables created for attractiveness factor. Lets create dummy variables for attractiveness factor.
 
 #forward step
 fit_lm<-step(lm(sales~advertise+plays+factor(attractiveness) , data = SalesData),method='forward')
 
 #not a good approach 
 #$this is the best fit model, no modification. let's create dummy variables.'
-
-dummy(SalesData$attractiveness, p="all" , SalesData)
-
 library(dummy)
+
+SalesData$attractiveness<-as.factor(SalesData$attractiveness)
 
 head(dummy(SalesData))
 
-Sales<-(dummy(SalesData))
+Sales_dummy<-dummy(SalesData)
 
-df<-cbind(SalesData[,-4],Sales)
+New_SalesData<-cbind(SalesData[,-4],Sales_dummy)
+
+head(New_SalesData)
+
+summary(New_SalesData)
+
+names(New_SalesData)
 
 
+final_model<-lm(New_SalesData$sales~. ,data = New_SalesData)
 
-head(df)
+summary(final_model) # final step, write interpretations for all estimated values
+plot(final_model)
 
-names(df)
-attach(df)
+step(final_model, method= 'forward') 
 
-mod1<-lm(df$sales~. ,data = df)
-step(mod1, method= 'forward') 
-
-predict(mod1,df)
-
-library(dummy)
-summary(mod1) # final step, write interpretations for all estimated values
-forecast(fit_1lm)
-forcast(fit_lm)
-forecast::forecast.lm(fit_lm)
-forecast.lm(fit_lm)
-plot(fit_lm)
-fit_lm<-lm(sales~advertise+plays+attractiveness, SalesData)
-summary(fit_lm)
-anova(fit_lm)
